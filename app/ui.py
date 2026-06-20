@@ -153,7 +153,7 @@ with st.form("applicant_form"):
         organization_type = st.selectbox(
             "Employer sector",
             [
-                "", "Business Entity Type 3", "Business Entity Type 2", "Business Entity Type 1",
+                "N/A — not specified", "Business Entity Type 3", "Business Entity Type 2", "Business Entity Type 1",
                 "Self-employed", "Government", "Military", "School", "Medicine",
                 "Transport: type 4", "Transport: type 3", "Transport: type 2", "Transport: type 1",
                 "Construction", "Industry: type 9", "Industry: type 3", "Industry: type 11",
@@ -162,30 +162,30 @@ with st.form("applicant_form"):
                 "Agriculture", "Postal", "Restaurant", "Security", "Electricity",
                 "Telecom", "Emergency", "Cleaning", "Religion", "Other",
             ],
-            help="ORGANIZATION_TYPE — rank 10, 2.0% gain"
+            help="ORGANIZATION_TYPE — rank 10, 2.0% gain. Real-world missingness here is ~0%, so this is mostly for completeness."
         )
 
     with emp_col2:
         occupation_type = st.selectbox(
             "Occupation",
             [
-                "", "Laborers", "Core staff", "Accountants", "Managers", "Drivers",
+                "N/A — not specified", "Laborers", "Core staff", "Accountants", "Managers", "Drivers",
                 "Sales staff", "Cleaning staff", "Cooking staff", "Private service staff",
                 "Medicine staff", "Security staff", "High skill tech staff",
                 "Waiters/barmen staff", "Low-skill Laborers", "Realty agents",
                 "Secretaries", "IT staff", "HR staff",
             ],
-            help="OCCUPATION_TYPE — rank 11, 1.95% gain"
+            help="OCCUPATION_TYPE — rank 11, 1.95% gain. Genuinely missing for 31% of real applicants — pick N/A to let the model impute/encode it as unknown, same as a real blank application."
         )
 
     with emp_col3:
         education_type = st.selectbox(
             "Highest education level",
             [
-                "", "Secondary / secondary special", "Higher education",
+                "N/A — not specified", "Secondary / secondary special", "Higher education",
                 "Incomplete higher", "Lower secondary", "Academic degree",
             ],
-            help="NAME_EDUCATION_TYPE — rank 12, 1.84% gain"
+            help="NAME_EDUCATION_TYPE — rank 12, 1.84% gain. Real-world missingness here is ~0%, so this is mostly for completeness."
         )
         gender = st.selectbox("Gender", ["M", "F"], help="CODE_GENDER — rank 16, 1.53% gain")
 
@@ -213,7 +213,8 @@ with st.form("applicant_form"):
     with loc_col3:
         family_status = st.selectbox(
             "Family status",
-            ["", "Single / not married", "Married", "Civil marriage", "Widow", "Separated"]
+            ["N/A — not specified", "Single / not married", "Married", "Civil marriage", "Widow", "Separated"],
+            help="NAME_FAMILY_STATUS. Real-world missingness here is ~0%, so this is mostly for completeness."
         )
         family_members = st.number_input("Total family members", 1, 20, 2)
 
@@ -256,13 +257,14 @@ if submitted:
         payload["EXT_SOURCE_3"] = ext3
     if own_car == "Y":
         payload["OWN_CAR_AGE"] = own_car_age
-    if organization_type:
+    NA = "N/A — not specified"
+    if organization_type != NA:
         payload["ORGANIZATION_TYPE"] = organization_type
-    if occupation_type:
+    if occupation_type != NA:
         payload["OCCUPATION_TYPE"] = occupation_type
-    if education_type:
+    if education_type != NA:
         payload["NAME_EDUCATION_TYPE"] = education_type
-    if family_status:
+    if family_status != NA:
         payload["NAME_FAMILY_STATUS"] = family_status
 
     try:
