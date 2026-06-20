@@ -1,0 +1,28 @@
+# Serving-only dependencies for ClermontAI (API + UI).
+# Pinned to the exact versions in venv_new that are PROVEN to load the
+# pickled artifacts in models/ and produce correct scores.
+#
+# NOTE: the artifacts were originally saved under scikit-learn 1.8.0 but the
+# working env runs 1.9.0; loading emits a benign InconsistentVersionWarning and
+# still scores correctly. We pin 1.9.0 here because that is the tested combo and
+# because 1.9.0 has wheels for Python 3.14. To silence the warning, re-save the
+# artifacts under 1.9.0.
+
+# --- core ML / numerics (must match the versions the .joblib files expect) ---
+numpy==2.4.6
+pandas==3.0.3
+scipy==1.17.1
+scikit-learn==1.9.0
+lightgbm==4.6.0
+joblib==1.5.3
+shap==0.52.0
+
+# --- API layer ---
+fastapi==0.137.0
+uvicorn==0.49.0
+pydantic==2.13.4
+
+# --- UI layer ---
+streamlit==1.58.0
+altair==6.2.1
+requests==2.34.2

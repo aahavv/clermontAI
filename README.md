@@ -1,3 +1,13 @@
+---
+title: ClermontAI Credit Risk Scorer
+emoji: 🏦
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 8501
+pinned: false
+---
+
 # clermontAI
 
 Credit risk and fraud detection ML system for fintech lenders.

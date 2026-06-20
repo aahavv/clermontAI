@@ -1,0 +1,37 @@
+# Keep the build context tiny and the image lean.
+# (We also COPY selectively in the Dockerfile, but excluding these stops
+#  gigabytes of venv/data from being sent to the Docker daemon.)
+
+venv_new/
+venv/
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Raw + processed data are NOT needed at serving time (score.py only reads models/)
+data/
+
+# Training/EDA assets not needed to serve
+notebooks/*.ipynb
+notebooks/exploratory/
+notebooks/build_artifacts.py
+notebooks/cold_score.py
+research/
+clermontAI references/
+
+# Unused model byproducts (we only ship the 4 serving artifacts)
+models/optuna_study.db
+models/*.png
+models/*.csv
+models/best_params.json
+models/final_model_opt.joblib
+models/lgbm_tuned_*.joblib
+models/calibrator_isotonic.joblib
+models/calibrator_platt.joblib
+
+.git/
+.gitignore
+*.md
+Dockerfile
+.dockerignore

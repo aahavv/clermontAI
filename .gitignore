@@ -3,14 +3,21 @@ data/
 *.csv
 *.parquet
 
-# Models
+# Models — ignore everything heavy/derived, but KEEP the 4 serving artifacts
+# (these must ship to GitHub/Hugging Face or the Docker build has no model).
 models/*.pkl
 models/*.joblib
+!models/lgbm_tuned.joblib
+!models/calibrator.joblib
+!models/transformers.joblib
+# model_contract.json is not ignored (not a .csv/.joblib), so it ships as-is.
 
 # Python
 __pycache__/
 *.pyc
 venv/
+venv_new/
+.venv/
 .env
 
 # Jupyter
