@@ -79,8 +79,12 @@ with st.form("applicant_form"):
                                help="Check if bureau score 1 is on file — leave unchecked to let model impute")
     with es_col2:
         ext2 = st.slider("EXT_SOURCE_2", 0.0, 1.0, 0.420, 0.001, format="%.3f", help="Bureau score 2 — 17% of model gain")
+        has_ext2 = st.checkbox("EXT_SOURCE_2 available?", value=True,
+                               help="Check if bureau score 2 is on file — leave unchecked to let model impute")
     with es_col3:
         ext3 = st.slider("EXT_SOURCE_3", 0.0, 1.0, 0.310, 0.001, format="%.3f", help="Bureau score 3 — 19% of model gain")
+        has_ext3 = st.checkbox("EXT_SOURCE_3 available?", value=True,
+                               help="Check if bureau score 3 is on file — leave unchecked to let model impute")
 
     st.divider()
 
@@ -241,13 +245,15 @@ if submitted:
         "DAYS_REGISTRATION":          -int(address_years * 365.25),
         "DAYS_ID_PUBLISH":            -int(id_years * 365.25),
         "DAYS_LAST_PHONE_CHANGE":     float(phone_change_days_map[phone_change_unit]),
-        "EXT_SOURCE_2":               ext2,
-        "EXT_SOURCE_3":               ext3,
         "REGION_POPULATION_RELATIVE": AREA_TYPE_MAP[area_type],
         "CNT_FAM_MEMBERS":            float(family_members),
     }
     if has_ext1:
         payload["EXT_SOURCE_1"] = ext1
+    if has_ext2:
+        payload["EXT_SOURCE_2"] = ext2
+    if has_ext3:
+        payload["EXT_SOURCE_3"] = ext3
     if own_car == "Y":
         payload["OWN_CAR_AGE"] = own_car_age
     if organization_type:
