@@ -2,17 +2,15 @@
 # Pinned to the exact versions in venv_new that are PROVEN to load the
 # pickled artifacts in models/ and produce correct scores.
 #
-# NOTE: the artifacts were originally saved under scikit-learn 1.8.0 but the
-# working env runs 1.9.0; loading emits a benign InconsistentVersionWarning and
-# still scores correctly. We pin 1.9.0 here because that is the tested combo and
-# because 1.9.0 has wheels for Python 3.14. To silence the warning, re-save the
-# artifacts under 1.9.0.
+# NOTE: the artifacts in models/ were pickled under scikit-learn 1.8.0. Pinning
+# to that exact version (not 1.9.0) avoids the InconsistentVersionWarning on
+# every boot and removes any risk of attribute-layout drift between releases.
 
 # --- core ML / numerics (must match the versions the .joblib files expect) ---
 numpy==2.4.6
 pandas==3.0.3
 scipy==1.17.1
-scikit-learn==1.9.0
+scikit-learn==1.8.0
 lightgbm==4.6.0
 joblib==1.5.3
 shap==0.52.0
