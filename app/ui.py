@@ -74,13 +74,13 @@ with st.form("applicant_form"):
 
     es_col1, es_col2, es_col3 = st.columns(3)
     with es_col1:
-        ext2 = st.slider("EXT_SOURCE_2", 0.0, 1.0, 0.42, 0.01, help="Bureau score 2 — 17% of model gain")
-    with es_col2:
-        ext3 = st.slider("EXT_SOURCE_3", 0.0, 1.0, 0.31, 0.01, help="Bureau score 3 — 19% of model gain")
-    with es_col3:
         has_ext1 = st.checkbox("EXT_SOURCE_1 available?", value=False,
                                help="Check if bureau score 1 is on file — leave unchecked to let model impute")
-        ext1 = st.slider("EXT_SOURCE_1", 0.0, 1.0, 0.50, 0.01, help="Bureau score 1 — 5.8% of model gain")
+        ext1 = st.slider("EXT_SOURCE_1", 0.0, 1.0, 0.500, 0.001, help="Bureau score 1 — 5.8% of model gain")
+    with es_col2:
+        ext2 = st.slider("EXT_SOURCE_2", 0.0, 1.0, 0.420, 0.001, help="Bureau score 2 — 17% of model gain")
+    with es_col3:
+        ext3 = st.slider("EXT_SOURCE_3", 0.0, 1.0, 0.310, 0.001, help="Bureau score 3 — 19% of model gain")
 
     st.divider()
 
